@@ -58,16 +58,20 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-	this.words.words.toArray().subscribe(
-	    data => {
-		this.setState({
-		    words: {
-			title: this.words.title,
-			words: data
-		    }
-		})
-	    });
+
+	let updateState = (prop, property) => {
+	    return data => {
+		let obj = {};
+		obj[property] = {
+		    title: prop.title,
+		    words: data };
+		this.setState(obj);
+	    }
+	}
 	
+	this.words.words.toArray().subscribe(updateState(this.words, "words"));
+	this.nanoha.words.toArray().subscribe(updateState(this.nanoha, "nanoha"));
+	this.vivid.words.toArray().subscribe(updateState(this.vivid, "vivid"));
     }
     
     render() {
@@ -90,7 +94,10 @@ class Main extends React.Component {
 	    
 	}
 
-	let sections = [this.state.words,this.vivid,this.nanoha,this.action].filter(data => data);
+	let sections = [ this.state.words,
+			 this.state.vivid,
+			 this.state.nanoha,
+			 this.action].filter(data => data);
 	
 	return (<div className="mdl-layout mdl-js-layout">
 		<header className="mdl-layout__header">

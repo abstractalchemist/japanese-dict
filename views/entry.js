@@ -1,6 +1,6 @@
 const http = require('http');
 
-const db = "test";
+const db = process.argv[2];
 
 const mapper = function(doc) {
     if(doc) {

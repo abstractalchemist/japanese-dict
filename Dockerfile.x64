@@ -11,6 +11,7 @@ RUN apk update --no-cache && \
 WORKDIR /www
 COPY default.conf /etc/nginx/conf.d
 COPY build /www
+COPY index.json /www
 
 EXPOSE 80
 CMD ["nginx","-g","daemon off;"]
