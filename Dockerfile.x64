@@ -1,0 +1,16 @@
+FROM alpine
+RUN apk update --no-cache && \
+    apk add nginx --no-cache && \
+    adduser -D -g 'www' -u 1000 www && \
+    mkdir -p /run/nginx /var/tmp/nginx /www && \
+    chown -R www:www /www && \
+    chmod -R 755 /www && \
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
+    ln -sf /dev/stdout /var/log/nginx/access.log
+
+WORKDIR /www
+COPY default.conf /etc/nginx/conf.d
+COPY build /www
+
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]

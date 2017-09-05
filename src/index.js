@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Words from './words';
+import Words from './words_db';
 import Vivid from './vivid';
 import Nanoha from './nanoha';
 import Actions from './action';
@@ -25,13 +25,13 @@ function Table({title,words}) {
 		    return words.map(items => {
 			return (<tr>
 				<td className="mdl-data-table__cell-non-numeric" style={{textAlign:"left"}}>
-				{items[0]}
+				{items[0] || items.kanji}
 				</td>
 				<td style={{textAlign:"left"}}>
-				{items[1]}
+				{items[1] || items.kana}
 				</td>
 				<td style={{textAlign:"left"}}>
-				{items[2]}
+				{items[2] || items.english}
 				</td>
 				</tr>)
 		    })
@@ -46,58 +46,83 @@ function Table({title,words}) {
 
     
 
-function Main({words,vivid,nanoha,action}) {
+class Main extends React.Component {
+    constructor(props) {
+	super(props);
+	this.words = props.words;
+	this.vivid = props.vivid;
+	this.nanoha = props.nanoha;
+	this.action = props.action;
+	this.state = {};
 
-    let scroll = target => {
-	return evt => {
-	    evt.preventDefault();
-	    document.querySelector("#" + target).scrollIntoView();
-	}
     }
 
-    let links = portions => {
-	return (<nav className="mdl-navigation">
-		{(_ => {
-		    return portions.map(({title}) => {
-			return ( <a className="mdl-navigation__link" onClick={scroll(id(title))} >{title}</a> )
+    componentDidMount() {
+	this.words.words.toArray().subscribe(
+	    data => {
+		this.setState({
+		    words: {
+			title: this.words.title,
+			words: data
+		    }
+		})
+	    });
+	
+    }
+    
+    render() {
+	
+	let scroll = target => {
+	    return evt => {
+		evt.preventDefault();
+		document.querySelector("#" + target).scrollIntoView();
+	    }
+	}
+
+	let links = portions => {
+	    return (<nav className="mdl-navigation">
+		    {(_ => {
+			return portions.map(({title}) => {
+			    return ( <a className="mdl-navigation__link" onClick={scroll(id(title))} >{title}</a> )
+			})
+		    })()}
+		    </nav>)
+	    
+	}
+
+	let sections = [this.state.words,this.vivid,this.nanoha,this.action].filter(data => data);
+	
+	return (<div className="mdl-layout mdl-js-layout">
+		<header className="mdl-layout__header">
+		<div className="mdl-layout__header-row">
+		<span className="mdl-layout-title">Weiss Japanese Specific Words</span>
+		<div className="mdl-layout-spacer">
+		</div>
+		{links(sections)}
+		</div>
+		</header>
+		<div className="mdl-layout__drawer">
+		
+		{links(sections)}
+		
+		</div>
+		
+		<main className="mdl-layout__content">
+		<div className="mdl-grid" style={{ maxWidth:"70%" }}>
+		{( _ => {
+		    return sections.map(({title,words}) => {
+			return (<div className="mdl-cell mdl-cell--12-col">
+				<span>{title}</span>
+				<Table title={title} words={words} />
+				</div>)
+
 		    })
 		})()}
-		</nav>)
 		
+		</div>
+		</main>
+		</div>)
     }
-
-    let sections = [words,vivid,nanoha,action];
-    
-    return (<div className="mdl-layout mdl-js-layout">
-	    <header className="mdl-layout__header">
-	    <div className="mdl-layout__header-row">
-	    <span className="mdl-layout-title">Weiss Japanese Specific Words</span>
-	    <div className="mdl-layout-spacer">
-	    </div>
-	    {links(sections)}
-	    </div>
-	    </header>
-	    <div className="mdl-layout__drawer">
-	    
-	    {links(sections)}
-	    
-	    </div>
-	    
-	    <main className="mdl-layout__content">
-	    <div className="mdl-grid" style={{ maxWidth:"70%" }}>
-	    {( _ => {
-		return sections.map(({title,words}) => {
-		    return (<div className="mdl-cell mdl-cell--12-col">
-			    <span>{title}</span>
-			    <Table title={title} words={words} />
-			    </div>)
-
-		})
-	    })()}
-	    
-	    </div>
-	    </main>
-	    </div>)
 }
 
 document.addEventListener('DOMContentLoaded', _ => {

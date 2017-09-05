@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "rx": "^4.1.0"
   },
   "devDependencies": {
     "babel-preset-latest": "^6.24.1",
