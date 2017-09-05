@@ -41,7 +41,7 @@ function Table({title,words}) {
 	    </tbody>
 	    </table>)
 
-7}
+}
 
 
     
