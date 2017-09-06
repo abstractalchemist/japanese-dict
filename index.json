@@ -1,9 +1,9 @@
 {"links":[
     {
-	"href":"/api/test/_design/9cf2793a22f3f8f592ebe2f8020200cc/_list/all/all"
+	"href":"/api/test/_design/eeb8eccac49950ea7293ae2ab3001258/_list/all/all"
     },
     {
-	"href":"/api/test/<id>",
+	"href":"/api/test/<id>"
     },
     {
 	"href":"/api/_uuids"

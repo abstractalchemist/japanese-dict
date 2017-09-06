@@ -14,4 +14,5 @@ WORKDIR /www
 EXPOSE 80
 COPY default.conf /etc/nginx/conf.d
 ADD build /www
+COPY index.json nanoha.json vivid.json /www/
 CMD ["nginx","-g","daemon off;"]

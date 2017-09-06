@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOST=localhost
+HOST=management3.docker.abstractalchemist.com
 PORT=5984
 WORDS_DB=test
 VIVID_DB=vivid

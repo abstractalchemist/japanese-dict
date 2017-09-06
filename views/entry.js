@@ -1,6 +1,7 @@
 const http = require('http');
 
 const db = process.argv[2];
+const host = process.argv[3];
 
 const mapper = function(doc) {
     if(doc) {
@@ -19,11 +20,11 @@ const lister = function(head,req) {
     send("]");
 }
  
-let uuid = http.request({ method: "GET", host : "localhost", port: "5984", path : "/_uuids"}, res => {
+let uuid = http.request({ method: "GET", host : host, port: "5984", path : "/_uuids"}, res => {
     let buffer = "";
     res.on('data', data => buffer += "" + data)
     res.on('end', _ => {
-	let ddoc = http.request({ method: "PUT", host: "localhost", port: "5984", path: "/" + db + "/_design/" + JSON.parse(buffer).uuids[0]}, res => {
+	let ddoc = http.request({ method: "PUT", host: host, port: "5984", path: "/" + db + "/_design/" + JSON.parse(buffer).uuids[0]}, res => {
 	    buffer = "";
 	    res.on('data', data => buffer += "" + data);
 	    res.on('end', _ => {

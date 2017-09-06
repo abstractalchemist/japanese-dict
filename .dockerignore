@@ -2,3 +2,5 @@
 !build/*
 !default.conf
 !index.json
+!nanoha.json
+!vivid.json
