@@ -59,6 +59,10 @@ class Main extends React.Component {
 
     componentDidMount() {
 
+	this.updateWords();
+    }
+    
+    updateWords() {
 	let updateState = (prop, property) => {
 	    return data => {
 		let obj = {};
@@ -70,21 +74,22 @@ class Main extends React.Component {
 		this.setState(obj);
 	    }
 	}
-	
+
 	this.words.words.toArray().subscribe(updateState(this.words, "words"));
 	this.nanoha.words.toArray().subscribe(updateState(this.nanoha, "nanoha"));
 	this.vivid.words.toArray().subscribe(updateState(this.vivid, "vivid"));
-    }
 
+    }
+    
     clickAdd(evt) {
-	let db = evt.target.dataset.db;
-	if(db) {
-	    console.log("clicked on " + db + " from %s", evt.target);
-	    
-	    document.querySelector("#add-entry").showModal();
-	    this.addFunc = this[db].add;
-	    evt.preventDefault();
-	}
+	let db = evt.target.dataset.db || evt.target.parentElement.dataset.db;
+	
+	console.log("clicked on " + db + " from %s", evt.target);
+	
+	document.querySelector("#add-entry").showModal();
+	this.addFunc = this[db].add;
+	evt.preventDefault();
+	
     }
 
     addEntry(evt) {
@@ -94,6 +99,7 @@ class Main extends React.Component {
 		console.log("add finished");
 		this.setState({kanji:"",kana:"",english:""});
 		document.querySelector("#add-entry").close();
+		this.updateWords();
 	    })
 	
     }
