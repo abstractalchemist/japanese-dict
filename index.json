@@ -1,10 +1,13 @@
 {"links":[
     {
-	"href":"/api/test/_design/eeb8eccac49950ea7293ae2ab3001258/_list/all/all"
+	"href":"/api/test/_design/view/_list/all/all"
     },
     {
 	"href":"/api/test/<id>"
     },
     {
 	"href":"/api/_uuids"
+    },
+    {
+	"href":"/api/test/<id>"
     }]}

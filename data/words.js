@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 
+// usage node words.js <db> <data_file> <host>
+
 const db = process.argv[2];
 const host = process.argv[4];
 fs.readFile(process.argv[3], 'utf8', (err,data) => {

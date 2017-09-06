@@ -1,10 +1,14 @@
 {"links":[
     {
-	"href":"/api/nanoha/_design/eeb8eccac49950ea7293ae2ab3001dd6/_list/all/all"
+	"href":"/api/nanoha/_design/view/_list/all/all"
     },
     {
 	"href":"/api/nanoha/<id>"
     },
     {
 	"href":"/api/_uuids"
+    },
+    {
+	"href":"/api/nanoha/<id>"
+	
     }]}

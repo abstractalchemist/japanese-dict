@@ -1,10 +1,13 @@
 {"links":[
     {
-	"href":"/api/vivid/_design/eeb8eccac49950ea7293ae2ab3002391/_list/all/all"
+	"href":"/api/vivid/_design/view/_list/all/all"
     },
     {
 	"href":"/api/vivid/<id>"
     },
     {
 	"href":"/api/_uuids"
+    },
+    {
+	"href":"/api/vivid/<id>"
     }]}

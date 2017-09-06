@@ -10,20 +10,21 @@ function id(target) {
 	return target.replace(/ /g, '-') + "-id";
 }
 
-function Table({title,words}) {
+function Table({title,words,del,update}) {
     return (<table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id={id(title)}>
 	    <thead>
 	    <tr>
 	    <th className="mdl-data-table__cell-non-numeric" style={{textAlign:"left"}}>Kanji ( if applicable )</th>
 	    <th style={{textAlign:"left"}}>Kana</th>
 	    <th style={{textAlign:"left"}}>English</th>
+	    <th></th>
 	    </tr>
 	    </thead>
 	    <tbody>
 	    {(_ => {
 		if(words) {
 		    return words.map(items => {
-			return (<tr>
+			return (<tr  data-id={items._id}>
 				<td className="mdl-data-table__cell-non-numeric" style={{textAlign:"left"}}>
 				{items[0] || items.kanji}
 				</td>
@@ -32,6 +33,19 @@ function Table({title,words}) {
 				</td>
 				<td style={{textAlign:"left"}}>
 				{items[2] || items.english}
+				</td>
+				<td>
+				<button className="mdl-button mdl-js-button mdl-button--fab" onClick={(
+				    evt => {
+					del(items._id, items._rev).subscribe(
+					    data => {
+						update();
+					    });
+					evt.preventDefault();
+				    }
+				)}>
+				<i className="material-icons">close</i>
+				</button>
 				</td>
 				</tr>)
 		    })
@@ -69,6 +83,7 @@ class Main extends React.Component {
 		obj[property] = {
 		    title: prop.title,
 		    add: prop.add,
+		    del: prop.del,
 		    db: property,
 		    words: data };
 		this.setState(obj);
@@ -152,11 +167,11 @@ class Main extends React.Component {
 		<main className="mdl-layout__content">
 		<div className="mdl-grid" style={{ maxWidth:"70%" }}>
 		{( _ => {
-		    return sections.map(({title,words,db}) => {
+		    return sections.map(({title,words,db,del}) => {
 			return (<div className="mdl-cell mdl-cell--12-col">
 				<span>{title}</span>
 				
-				<Table title={title} words={words} />
+				<Table title={title} words={words} del={del} update={this.updateWords.bind(this)}/>
 				<br/>
 			 	<button className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onClick={this.clickAdd.bind(this)} data-db={db}>
 				<i className="material-icons">add</i>

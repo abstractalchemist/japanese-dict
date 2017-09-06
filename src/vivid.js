@@ -6,6 +6,7 @@ export default (function() {
     return {
 	title: "Vivid Strike",
 	add: Utils.addFunc('/vivid.json'),
+	del: Utils.deleteFunc('/vivid.json'),
 	words:
 	Rx.Observable.fromPromise(Http({url:"/vivid.json"}))
 	    .map(JSON.parse)

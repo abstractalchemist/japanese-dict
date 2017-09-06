@@ -24,7 +24,7 @@ let uuid = http.request({ method: "GET", host : host, port: "5984", path : "/_uu
     let buffer = "";
     res.on('data', data => buffer += "" + data)
     res.on('end', _ => {
-	let ddoc = http.request({ method: "PUT", host: host, port: "5984", path: "/" + db + "/_design/" + JSON.parse(buffer).uuids[0]}, res => {
+	let ddoc = http.request({ method: "PUT", host: host, port: "5984", path: "/" + db + "/_design/view"}, res => {
 	    buffer = "";
 	    res.on('data', data => buffer += "" + data);
 	    res.on('end', _ => {

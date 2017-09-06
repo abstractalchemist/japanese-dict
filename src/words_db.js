@@ -6,6 +6,7 @@ export default (function() {
     let obj = {
 	title : "General Words",
  	add: Utils.addFunc("/index.json"),
+	del: Utils.deleteFunc("/index.json"),
 	words : Rx.Observable.fromPromise(Http({url:"/index.json"}))
 	    .map(JSON.parse)
 	    .selectMany(({links}) => {

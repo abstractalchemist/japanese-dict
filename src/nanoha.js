@@ -6,6 +6,7 @@ export default (function() {
     return {
 	title : "Magical Lyrical Nanoha",
 	add: Utils.addFunc("/nanoha.json"),
+	del: Utils.deleteFunc("/nanoha.json"),
 	words :  //Rx.Observable.fromArray([["","",""]]),
 	Rx.Observable.fromPromise(Http({url:"/nanoha.json"}))
 	    .map(JSON.parse)

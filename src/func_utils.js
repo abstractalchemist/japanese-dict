@@ -19,5 +19,16 @@ export default (function() {
 		    })
 	    }
 	},
+	deleteFunc : base => {
+	    return (id,rev) => {
+		return Rx.Observable.fromPromise(Http({url:base})).
+		    map(JSON.parse)
+		    .selectMany(({links}) => {
+			return Rx.Observable.fromPromise(Http({url:links[3].href.replace(/<id>/,id + "?rev=" + rev),method:"DELETE"}))
+			    .map(JSON.parse);
+			    
+		    })
+	    }
+	}
     }
 })()
