@@ -1,7 +1,7 @@
 export default function(opts, data) {
     return new Promise((resolve,reject) => {
 	let method = opts.method || "GET";
-	let data = data || "";
+	let inputs = data || "";
 	let xhr = new XMLHttpRequest();
 	xhr.open(method, opts.url);
 	xhr.onreadystatechange = function() {
@@ -15,7 +15,7 @@ export default function(opts, data) {
 	    }
 
 	}
-	xhr.send(data);
+	xhr.send(inputs);
     })
 }
 		       

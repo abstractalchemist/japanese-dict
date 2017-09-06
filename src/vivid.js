@@ -1,14 +1,12 @@
 import Rx from 'rx';
 import Http from './utils';
+import Utils from './func_utils'
 
 export default (function() {
     return {
 	title: "Vivid Strike",
+	add: Utils.addFunc('/vivid.json'),
 	words:
-	/*Rx.Observable.fromArray([
-	    ["格闘","","Martial Arts"],
-	    ["覇王流","","Kaiser Arts"],
-	    ["","",""],*/
 	Rx.Observable.fromPromise(Http({url:"/vivid.json"}))
 	    .map(JSON.parse)
 	    .selectMany(({links}) => {
