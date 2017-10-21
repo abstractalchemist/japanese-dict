@@ -1,10 +1,10 @@
 import Rx from 'rx';
-import Http from './utils';
+import Http from 'utils';
 import Utils from './func_utils'
 
 export default (function() {
     return {
-	title: "Vivid Strike",
+	label: "Vivid Strike",
 	add: Utils.addFunc('/vivid.json'),
 	del: Utils.deleteFunc('/vivid.json'),
 	words:

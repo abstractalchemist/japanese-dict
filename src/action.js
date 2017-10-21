@@ -1,6 +1,6 @@
 export default (function() {
     return {
-	title: "Action Types",
+	label: "Action Types",
 	words: [
 	    ["永","","Continous"],
 	    ["自","","Activated"],

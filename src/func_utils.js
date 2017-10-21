@@ -1,5 +1,5 @@
 import Rx from 'rx';
-import Http from './utils'
+import Http from 'utils'
 
 export default (function() {
     return {

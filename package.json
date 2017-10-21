@@ -9,19 +9,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "rx": "^4.1.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "rx": "^4.1.0",
+    "ui-utils": "git+ssh://git@github.com/abstractalchemist/ui-utils.git#v0.0.0.5",
+    "utils": "git+ssh://git@github.com/abstractalchemist/utils.git#v0.0.0.2"
   },
   "devDependencies": {
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
-    "browserify": "^14.4.0",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
     "gulp-mocha": "^4.3.1",
-    "jsdom": "^11.2.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "browserify": "^14.5.0",
+    "jsdom": "^11.3.0"
   }
 }

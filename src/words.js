@@ -1,7 +1,7 @@
 import Rx from 'rx';
 
 export default (function() {
-    return { title: "General Words",
+    return { label: "General Words",
 	     words: Rx.Observable.fromArray(
 		 [
 		     ["山札","やまふだ","deck"],

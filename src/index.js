@@ -4,61 +4,13 @@ import Words from './words_db';
 import Vivid from './vivid';
 import Nanoha from './nanoha';
 import Actions from './action';
+import { Nav, Drawer, Body  } from 'ui-utils'
+import { Table } from './dict_utils'
 
 function id(target) {
     if(target)
 	return target.replace(/ /g, '-') + "-id";
-}
-
-function Table({title,words,del,update}) {
-    return (<table className="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id={id(title)}>
-	    <thead>
-	    <tr>
-	    <th className="mdl-data-table__cell-non-numeric" style={{textAlign:"left"}}>Kanji ( if applicable )</th>
-	    <th style={{textAlign:"left"}}>Kana</th>
-	    <th style={{textAlign:"left"}}>English</th>
-	    <th></th>
-	    </tr>
-	    </thead>
-	    <tbody>
-	    {(_ => {
-		if(words) {
-		    return words.map(items => {
-			return (<tr  data-id={items._id}>
-				<td className="mdl-data-table__cell-non-numeric" style={{textAlign:"left"}}>
-				{items[0] || items.kanji}
-				</td>
-				<td style={{textAlign:"left"}}>
-				{items[1] || items.kana}
-				</td>
-				<td style={{textAlign:"left"}}>
-				{items[2] || items.english}
-				</td>
-				<td>
-				<button className="mdl-button mdl-js-button mdl-button--fab" onClick={(
-				    evt => {
-					del(items._id, items._rev).subscribe(
-					    data => {
-						update();
-					    });
-					evt.preventDefault();
-				    }
-				)}>
-				<i className="material-icons">close</i>
-				</button>
-				</td>
-				</tr>)
-		    })
-		}
-	    })()
-	    }
-	    </tbody>
-	    </table>)
-
-}
-
-
-    
+}   
 
 class Main extends React.Component {
     constructor(props) {
@@ -81,7 +33,7 @@ class Main extends React.Component {
 	    return data => {
 		let obj = {};
 		obj[property] = {
-		    title: prop.title,
+		    label: prop.label,
 		    add: prop.add,
 		    del: prop.del,
 		    db: property,
@@ -133,10 +85,10 @@ class Main extends React.Component {
 	    }
 	}
 
-	let links = portions => {
+	let links = portions => { 
 	    return (<nav className="mdl-navigation">
 		    {(_ => {
-			return portions.map(({title}) => {
+			return portions.map(({label:title}) => {
 			    return ( <a className="mdl-navigation__link" onClick={scroll(id(title))} >{title}</a> )
 			})
 		    })()}
@@ -150,24 +102,23 @@ class Main extends React.Component {
 			 this.action].filter(data => data);
 
 	return (<div className="mdl-layout mdl-js-layout">
-		<header className="mdl-layout__header">
-		<div className="mdl-layout__header-row">
-		<span className="mdl-layout-title">Weiss Japanese Specific Words</span>
-		<div className="mdl-layout-spacer">
-		</div>
-		{links(sections)}
-		</div>
-		</header>
-		<div className="mdl-layout__drawer">
-		
-		{links(sections)}
-		
-		</div>
-		
-		<main className="mdl-layout__content">
+		<Nav title="Weiss Japanese Specific Words" links={sections.map(
+		    s => {
+			s.id = id(s.label);
+			return s
+		    }
+		)} />
+		<Drawer title="Weiss Japanese Specific Words" links={sections.map(
+		    s => {
+			s.id = id(s.label);
+			return s;
+		    }
+		)} />
+								    
+		<Body>
 		<div className="mdl-grid" style={{ maxWidth:"70%" }}>
 		{( _ => {
-		    return sections.map(({title,words,db,del}) => {
+		    return sections.map(({label:title,words,db,del}) => {
 			return (<div className="mdl-cell mdl-cell--12-col">
 				<span>{title}</span>
 				
@@ -182,7 +133,7 @@ class Main extends React.Component {
 		})()}
 		
 		</div>
-		</main>
+		</Body>
 		<dialog id="add-entry" className="mdl-dialog">
 		<h4 className="mdl-dialog__title">
 		Add Entry

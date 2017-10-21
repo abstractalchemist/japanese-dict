@@ -1,10 +1,10 @@
 import Rx from 'rx';
-import Http from './utils';
+import Http from 'utils';
 import Utils from './func_utils'
 
 export default (function() {
     return {
-	title : "Magical Lyrical Nanoha",
+	label : "Magical Lyrical Nanoha",
 	add: Utils.addFunc("/nanoha.json"),
 	del: Utils.deleteFunc("/nanoha.json"),
 	words :  //Rx.Observable.fromArray([["","",""]]),
