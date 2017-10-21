@@ -1,4 +1,4 @@
-import Rx from 'rx';
+import Rx from 'rxjs/Rx';
 import Http from 'utils'
 
 export default (function() {
@@ -7,10 +7,10 @@ export default (function() {
 	    return fd => {
 		return Rx.Observable.fromPromise(Http({url:base}))
 		    .map(JSON.parse)
-		    .selectMany(({links}) => {
+		    .mergeMap(({links}) => {
 			return Rx.Observable.fromPromise(Http({url:links[2].href}))
 			    .map(JSON.parse)
-			    .selectMany(({uuids}) => {
+			    .mergeMap(({uuids}) => {
 				return Rx.Observable.fromPromise(Http({url:links[1].href.replace(/<id>/,uuids[0]), method:"PUT"}, JSON.stringify({
 				    kanji:fd.kanji,
 				    kana:fd.kana,
@@ -23,7 +23,7 @@ export default (function() {
 	    return (id,rev) => {
 		return Rx.Observable.fromPromise(Http({url:base})).
 		    map(JSON.parse)
-		    .selectMany(({links}) => {
+		    .mergeMap(({links}) => {
 			return Rx.Observable.fromPromise(Http({url:links[3].href.replace(/<id>/,id + "?rev=" + rev),method:"DELETE"}))
 			    .map(JSON.parse);
 			    

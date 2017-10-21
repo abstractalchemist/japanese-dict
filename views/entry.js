@@ -20,17 +20,23 @@ const lister = function(head,req) {
     send("]");
 }
  
-let uuid = http.request({ method: "GET", host : host, port: "5984", path : "/_uuids"}, res => {
+let uuid = http.request({ method: "GET", host : host, port: "5984", path : "/_uuids" }, res => {
     let buffer = "";
     res.on('data', data => buffer += "" + data)
     res.on('end', _ => {
-	let ddoc = http.request({ method: "PUT", host: host, port: "5984", path: "/" + db + "/_design/view"}, res => {
-	    buffer = "";
-	    res.on('data', data => buffer += "" + data);
-	    res.on('end', _ => {
-		console.log(buffer)
-	    })
-	})
+	let ddoc = http.request({
+	    method: "PUT",
+	    host: host,
+	    port: "5984",
+	    path: "/" + db + "/_design/view",
+	    headers: { "Authorization" : "Basic " + Buffer.from("admin:1qaz@WSX").toString('base64') } },
+				res => {
+				    buffer = "";
+				    res.on('data', data => buffer += "" + data);
+				    res.on('end', _ => {
+					console.log(buffer)
+				    })
+				})
 
 	ddoc.write(JSON.stringify({
 	    views : {

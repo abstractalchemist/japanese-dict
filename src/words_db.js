@@ -1,4 +1,4 @@
-import Rx from 'rx';
+import Rx from 'rxjs/Rx';
 import Http from 'utils';
 import Utils from './func_utils'
 
@@ -9,11 +9,11 @@ export default (function() {
 	del: Utils.deleteFunc("/index.json"),
 	words : Rx.Observable.fromPromise(Http({url:"/index.json"}))
 	    .map(JSON.parse)
-	    .selectMany(({links}) => {
+	    .mergeMap(({links}) => {
 		 
 		return Rx.Observable.fromPromise(Http({url:links[0].href}))
 		    .map(JSON.parse)
-		    .selectMany(Rx.Observable.fromArray);
+		    .mergeMap(Rx.Observable.from);
 	    })
     }
     return obj;

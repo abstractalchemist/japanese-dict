@@ -1,4 +1,4 @@
-import Rx from 'rx';
+import Rx from 'rxjs/Rx';
 import Http from 'utils';
 import Utils from './func_utils'
 
@@ -10,10 +10,10 @@ export default (function() {
 	words :  //Rx.Observable.fromArray([["","",""]]),
 	Rx.Observable.fromPromise(Http({url:"/nanoha.json"}))
 	    .map(JSON.parse)
-	    .selectMany(({links}) => {
+	    .mergeMap(({links}) => {
 		return Rx.Observable.fromPromise(Http({url:links[0].href}))
 		    .map(JSON.parse)
-		    .selectMany(Rx.Observable.fromArray);
+		    .mergeMap(Rx.Observable.from);
 	    })
 		       
     }

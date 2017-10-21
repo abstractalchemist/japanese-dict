@@ -5,12 +5,8 @@ import Vivid from './vivid';
 import Nanoha from './nanoha';
 import Actions from './action';
 import { Nav, Drawer, Body  } from 'ui-utils'
-import { Table } from './dict_utils'
+import { Table,id } from './dict_utils'
 
-function id(target) {
-    if(target)
-	return target.replace(/ /g, '-') + "-id";
-}   
 
 class Main extends React.Component {
     constructor(props) {
@@ -31,6 +27,7 @@ class Main extends React.Component {
     updateWords() {
 	let updateState = (prop, property) => {
 	    return data => {
+		console.log(`setting words to ${data}`)
 		let obj = {};
 		obj[property] = {
 		    label: prop.label,
@@ -42,9 +39,25 @@ class Main extends React.Component {
 	    }
 	}
 
-	this.words.words.toArray().subscribe(updateState(this.words, "words"));
-	this.nanoha.words.toArray().subscribe(updateState(this.nanoha, "nanoha"));
-	this.vivid.words.toArray().subscribe(updateState(this.vivid, "vivid"));
+	this.words.words.toArray()
+	    .subscribe(
+		updateState(this.words, "words"),
+		err => {
+		    console.log(`error ${err}`)
+		});
+	this.nanoha.words.toArray()
+	    .subscribe(
+		updateState(this.nanoha, "nanoha"),
+		err => {
+		    console.log(`error ${err}`)
+		})
+	this.vivid.words.toArray()
+	    .subscribe(
+		updateState(this.vivid, "vivid"),
+		err => {
+		    console.log(`error ${err}`)
+		})
+		
 
     }
     
@@ -182,3 +195,6 @@ class Main extends React.Component {
 document.addEventListener('DOMContentLoaded', _ => {
     ReactDOM.render(<Main words={Words} vivid={Vivid} nanoha={Nanoha} action={Actions}/>, document.querySelector('#content'));
 })
+
+
+export { Main as default };
