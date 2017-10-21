@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#TAG=v0.0.0.7
+
+#git checkout $TAG
+#git stash pop
+npm i
+gulp js
+docker build -t abstractalchemist/japanese-dict -f Dockerfile .
+docker push abstractalchemist/japanese-dict
+sleep 10s
+docker service update --detach=false --image abstractalchemist/japanese-dict japanese-dict
