@@ -14,7 +14,8 @@ export default (function() {
 		return Rx.Observable.fromPromise(Http({url:links[0].href}))
 		    .map(JSON.parse)
 		    .mergeMap(Rx.Observable.from);
-	    })
+	    }),
+	update: Utils.updateFunc("/index.json")
     }
     return obj;
 	

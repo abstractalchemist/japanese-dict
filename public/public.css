@@ -1,0 +1,25 @@
+.kanji {
+//    text-align: left;
+    font-size: x-large;
+}
+
+.kana {
+    
+}
+
+.words th {
+    text-align: left;
+}
+
+.words td {
+    text-align: left
+}
+
+
+.usage {
+    padding: 1rem;
+}
+
+.example {
+    min-width:200px
+}
