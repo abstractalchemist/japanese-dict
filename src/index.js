@@ -8,7 +8,7 @@ import { Nav, Drawer, Body  } from 'ui-utils'
 import { Table,id } from './dict_utils'
 
 function TextField({id,value,changehandler,label}) {
-    return (<div className="mdl-textfield mdl-js-textfield">
+    return (<div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 	    <input className="mdl-textfield__input" type="text" id={id} value={value} onChange={changehandler}></input>
 	    <label className="mdl-textfield__label" htmlFor="kanji">{label}</label>
 	    </div>)

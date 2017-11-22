@@ -12,7 +12,8 @@
 }
 
 .words td {
-    text-align: left
+    text-align: left;
+    overflow-x: hidden;
 }
 
 
